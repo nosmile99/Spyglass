@@ -4,8 +4,8 @@ import { McdocCheckerContext, typeDefinition } from '@spyglassmc/mcdoc/lib/runti
 import type { SimplifiedMcdocType } from '@spyglassmc/mcdoc/lib/runtime/checker/index.js'
 import { LiteralNumericValue } from '@spyglassmc/mcdoc/lib/type/index.js'
 import type { McdocType, UnionType } from '@spyglassmc/mcdoc/lib/type/index.js'
-import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
+import { describe, it } from 'node:test'
 import { TextDocument } from 'vscode-languageserver-textdocument'
 import { module_ as binder, TypeDefSymbolData } from '../../lib/binder/index.js'
 import { module_ as parser } from '../../lib/parser/index.js'
@@ -362,7 +362,9 @@ describe('mcdoc runtime checker', () => {
 						// duplicated keys survive (a plain object would collapse them).
 						if (
 							Array.isArray(value)
-							&& value.every(v => Array.isArray(v) && v.length === 2 && typeof v[0] === 'string')
+							&& value.every(v =>
+								Array.isArray(v) && v.length === 2 && typeof v[0] === 'string'
+							)
 						) {
 							return (value as [string, number][]).map(([k, v]) => ({
 								key: { originalNode: k, inferredType: inferType(k) },
